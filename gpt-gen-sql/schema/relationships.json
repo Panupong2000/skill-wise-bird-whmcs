@@ -1,10 +1,21 @@
 {
-    "relations": [
-     "tblclients.id = tblhosting.userid",
-     "tblclients.id = tbldomains.userid",
-     "tblclients.id = tblinvoices.userid",
-     "tblproducts.id = tblhosting.packageid",
-     "tblproductgroups.id = tblproducts.gid",
-     "tblinvoiceitems.invoiceid = tblinvoices.id"
-    ]
-   }
+  "relations": [
+    "tblclients.id = tblhosting.userid",
+    "tblclients.id = tbldomains.userid",
+    "tblclients.id = tblinvoices.userid",
+    "tblclients.id = tbltickets.userid",
+    "tblclients.id = tbltransactions.userid",
+    "tblclients.id = tblorders.userid",
+    "tblclients.currency = tblcurrencies.id",
+    "tblproducts.id = tblhosting.packageid",
+    "tblproducts.gid = tblproductgroups.id",
+    "tblinvoiceitems.invoiceid = tblinvoices.id",
+    "tbltransactions.invoiceid = tblinvoices.id",
+    "tblorders.invoiceid = tblinvoices.id",
+    "tblhosting.orderid = tblorders.id",
+    "tbldomains.orderid = tblorders.id",
+    "tblcancelrequests.relid = tblhosting.id",
+    "tblticketreplies.tid = tbltickets.id",
+    "tblorders.promocode = tblpromotions.code"
+  ]
+}

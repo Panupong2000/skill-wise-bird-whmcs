@@ -2,6 +2,7 @@ import openai
 import json
 import re
 import sys
+from datetime import datetime
 
 # ---------------------------------------------------------------------------
 # Load schema (structured format with nested "columns" dicts)
@@ -100,11 +101,20 @@ def generate_sql(question):
     correction_hint = ""
 
     for attempt in range(MAX_RETRIES + 1):
+        now = datetime.now()
+        date_context = (
+            f"Current date: {now.strftime('%Y-%m-%d')} "
+            f"(Year: {now.year}, Month: {now.month}, Day: {now.day}). "
+            f"Use this for any date-relative queries like 'this month', 'this year', 'last 30 days', etc."
+        )
+
         user_content = f"""Database schema:
 
 {schema_context}
 
 {SQL_RULES}
+
+{date_context}
 
 {correction_hint}
 

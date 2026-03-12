@@ -1162,5 +1162,136 @@
       "JOIN tblclients ON tblclients.id = tbltransactions.userid",
       "JOIN tblinvoices ON tblinvoices.id = tbltransactions.invoiceid"
     ]
+  },
+
+  "tblorders": {
+    "columns": {
+      "id": { "type": "int", "description": "Primary key, order ID" },
+      "ordernum": { "type": "bigint", "description": "Unique order number displayed to client" },
+      "userid": { "type": "int", "description": "FK → tblclients.id" },
+      "contactid": { "type": "int", "description": "Contact ID if placed by sub-contact" },
+      "date": { "type": "datetime", "description": "Order date/time", "business_note": "Use for order volume trends and acquisition analysis" },
+      "nameservers": { "type": "text", "description": "Nameservers specified in order" },
+      "transfersecret": { "type": "varchar", "description": "Domain transfer secret" },
+      "renewals": { "type": "text", "description": "Domain renewals included in order" },
+      "promocode": { "type": "varchar", "description": "Promo code used", "business_note": "JOIN tblpromotions ON promocode to analyze promo effectiveness" },
+      "promotype": { "type": "varchar", "description": "Type of promotion applied" },
+      "promovalue": { "type": "varchar", "description": "Promotion discount value" },
+      "orderdata": { "type": "text", "description": "Serialized order data" },
+      "amount": { "type": "decimal", "description": "Total order amount" },
+      "paymentmethod": { "type": "varchar", "description": "Payment gateway used" },
+      "invoiceid": { "type": "int", "description": "FK → tblinvoices.id" },
+      "status": {
+        "type": "enum",
+        "values": ["Active", "Pending", "Fraud", "Cancelled"],
+        "description": "Order status",
+        "business_note": "Fraud orders indicate payment issues; Cancelled = abandoned or rejected"
+      },
+      "ipaddress": { "type": "varchar", "description": "Client IP at time of order" },
+      "fraudmodule": { "type": "varchar", "description": "Fraud detection module used" },
+      "fraudoutput": { "type": "text", "description": "Fraud check output/results" },
+      "notes": { "type": "text", "description": "Admin notes on order" },
+      "created_at": { "type": "datetime", "description": "Record created timestamp" },
+      "updated_at": { "type": "datetime", "description": "Record last updated timestamp" }
+    },
+    "join_hints": [
+      "JOIN tblclients ON tblclients.id = tblorders.userid",
+      "JOIN tblinvoices ON tblinvoices.id = tblorders.invoiceid",
+      "JOIN tblhosting ON tblhosting.orderid = tblorders.id",
+      "JOIN tbldomains ON tbldomains.orderid = tblorders.id"
+    ]
+  },
+
+  "tblcancelrequests": {
+    "columns": {
+      "id": { "type": "int", "description": "Primary key" },
+      "relid": { "type": "int", "description": "FK → tblhosting.id — the service being cancelled", "business_note": "JOIN tblhosting to get service details, JOIN tblproducts via tblhosting.packageid to see which products are cancelled most" },
+      "reason": { "type": "text", "description": "Client-provided cancellation reason", "business_note": "Analyze common cancellation reasons for churn reduction" },
+      "type": {
+        "type": "enum",
+        "values": ["Immediate", "End of Billing Period"],
+        "description": "Cancellation type",
+        "business_note": "Immediate = urgent dissatisfaction, End of Billing Period = planned departure"
+      },
+      "created_at": { "type": "datetime", "description": "When cancellation was requested", "business_note": "Use for churn trend analysis" },
+      "updated_at": { "type": "datetime", "description": "Record last updated timestamp" }
+    },
+    "join_hints": [
+      "JOIN tblhosting ON tblhosting.id = tblcancelrequests.relid",
+      "JOIN tblclients ON tblclients.id = tblhosting.userid"
+    ]
+  },
+
+  "tblticketreplies": {
+    "columns": {
+      "id": { "type": "int", "description": "Primary key, reply ID" },
+      "tid": { "type": "int", "description": "FK → tbltickets.id" },
+      "userid": { "type": "int", "description": "FK → tblclients.id (0 for admin replies)" },
+      "contactid": { "type": "int", "description": "Contact ID if from sub-contact" },
+      "name": { "type": "varchar", "description": "Reply author name" },
+      "email": { "type": "varchar", "description": "Reply author email" },
+      "date": { "type": "datetime", "description": "Reply date/time", "business_note": "Use with tbltickets.date to calculate first-response-time and resolution time" },
+      "message": { "type": "text", "description": "Reply message content" },
+      "admin": { "type": "varchar", "description": "Admin username if admin reply (empty for client replies)", "business_note": "Use to measure per-admin response volume and speed" },
+      "attachment": { "type": "varchar", "description": "Attachment filenames" },
+      "rating": { "type": "int", "description": "Client satisfaction rating (1-5, 0=not rated)" },
+      "created_at": { "type": "datetime", "description": "Record created timestamp" },
+      "updated_at": { "type": "datetime", "description": "Record last updated timestamp" }
+    },
+    "join_hints": [
+      "JOIN tbltickets ON tbltickets.id = tblticketreplies.tid",
+      "JOIN tblclients ON tblclients.id = tblticketreplies.userid"
+    ]
+  },
+
+  "tblpromotions": {
+    "columns": {
+      "id": { "type": "int", "description": "Primary key, promotion ID" },
+      "code": { "type": "varchar", "description": "Promo code string", "business_note": "Match with tblorders.promocode to see usage" },
+      "type": {
+        "type": "enum",
+        "values": ["Percentage", "Fixed Amount", "Price Override", "Free Setup"],
+        "description": "Discount type"
+      },
+      "recurring": { "type": "tinyint", "description": "1 = applies to recurring payments too" },
+      "value": { "type": "decimal", "description": "Discount value (percentage or fixed amount)" },
+      "cycles": { "type": "int", "description": "Number of billing cycles promo applies (0 = unlimited)" },
+      "appliesto": { "type": "text", "description": "Comma-separated product IDs this promo applies to" },
+      "requires": { "type": "text", "description": "Required existing product IDs" },
+      "requiresexistingproduct": { "type": "tinyint", "description": "1 = client must have existing product" },
+      "startdate": { "type": "date", "description": "Promo start date" },
+      "expirationdate": { "type": "date", "description": "Promo expiry date" },
+      "maxuses": { "type": "int", "description": "Max number of uses (0 = unlimited)" },
+      "uses": { "type": "int", "description": "Current usage count", "business_note": "Compare uses vs maxuses for promo effectiveness" },
+      "lifetimepromo": { "type": "tinyint", "description": "1 = lifetime recurring discount" },
+      "applyonce": { "type": "tinyint", "description": "1 = apply only to first billing cycle" },
+      "newsignups": { "type": "tinyint", "description": "1 = only available for new signups" },
+      "existingclient": { "type": "tinyint", "description": "1 = only for existing clients" },
+      "onceperclient": { "type": "tinyint", "description": "1 = can only be used once per client" },
+      "recurfor": { "type": "int", "description": "Number of months promo recurs" },
+      "upgrades": { "type": "tinyint", "description": "1 = applies to upgrades" },
+      "upgradeconfig": { "type": "text", "description": "Upgrade-specific configuration" },
+      "notes": { "type": "text", "description": "Admin notes about promo" },
+      "created_at": { "type": "datetime", "description": "Record created timestamp" },
+      "updated_at": { "type": "datetime", "description": "Record last updated timestamp" }
+    },
+    "join_hints": [
+      "JOIN tblorders ON tblorders.promocode = tblpromotions.code"
+    ]
+  },
+
+  "tblcurrencies": {
+    "columns": {
+      "id": { "type": "int", "description": "Primary key, currency ID" },
+      "code": { "type": "varchar", "description": "Currency code (e.g. THB, USD)", "business_note": "Use for displaying human-readable currency names in results" },
+      "prefix": { "type": "varchar", "description": "Currency prefix symbol (e.g. ฿, $)" },
+      "suffix": { "type": "varchar", "description": "Currency suffix (e.g. THB)" },
+      "format": { "type": "int", "description": "Number format style" },
+      "rate": { "type": "decimal", "description": "Exchange rate relative to default currency", "business_note": "Multiply amounts by rate to convert to base currency for cross-currency comparison" },
+      "default": { "type": "tinyint", "description": "1 = default system currency" }
+    },
+    "join_hints": [
+      "JOIN tblclients ON tblclients.currency = tblcurrencies.id"
+    ]
   }
 }

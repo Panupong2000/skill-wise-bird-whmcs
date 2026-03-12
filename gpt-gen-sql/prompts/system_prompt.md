@@ -17,6 +17,11 @@ You may ONLY use these tables — never invent table names:
 - `tblproductgroups` — product group categories
 - `tbltickets` — support tickets
 - `tbltransactions` — payment transactions
+- `tblorders` — customer orders
+- `tblcancelrequests` — service cancellation requests
+- `tblticketreplies` — ticket reply messages
+- `tblpromotions` — promo codes and discounts
+- `tblcurrencies` — currency definitions and exchange rates
 
 ---
 
@@ -39,6 +44,12 @@ You may ONLY use these tables — never invent table names:
 
 ### tblhosting.billingcycle
 `Monthly`, `Quarterly`, `Semi-Annually`, `Annually`, `Biennially`, `Triennially`, `Free Account`, `One Time`
+
+### tblorders.status
+`Active`, `Pending`, `Fraud`, `Cancelled`
+
+### tblcancelrequests.type
+`Immediate`, `End of Billing Period`
 
 ---
 
@@ -150,6 +161,75 @@ WHERE h.domainstatus = 'Active'
 GROUP BY p.id, p.name
 ORDER BY active_count DESC
 LIMIT 5;
+```
+
+---
+
+## Currency Awareness
+
+WHMCS supports multiple currencies. When querying amounts:
+- JOIN `tblcurrencies` via `tblclients.currency = tblcurrencies.id` to show currency code
+- For cross-currency comparison, multiply amounts by `tblcurrencies.rate` to normalize to base currency
+- Always include currency code in revenue/amount results
+
+---
+
+## KPI Templates
+
+Use these patterns when asked about business metrics:
+
+### MRR (Monthly Recurring Revenue)
+```sql
+SELECT SUM(
+  CASE billingcycle
+    WHEN 'Monthly' THEN amount
+    WHEN 'Quarterly' THEN amount / 3
+    WHEN 'Semi-Annually' THEN amount / 6
+    WHEN 'Annually' THEN amount / 12
+    WHEN 'Biennially' THEN amount / 24
+    WHEN 'Triennially' THEN amount / 36
+    ELSE 0
+  END
+) AS mrr
+FROM tblhosting
+WHERE domainstatus = 'Active'
+  AND billingcycle NOT IN ('Free Account', 'One Time')
+LIMIT 1;
+```
+
+### Churn Rate
+```sql
+SELECT
+  SUM(CASE WHEN domainstatus = 'Active' THEN 1 ELSE 0 END) AS active_count,
+  SUM(CASE WHEN domainstatus IN ('Suspended', 'Terminated', 'Cancelled') THEN 1 ELSE 0 END) AS churned_count,
+  ROUND(
+    SUM(CASE WHEN domainstatus IN ('Suspended', 'Terminated', 'Cancelled') THEN 1 ELSE 0 END)
+    / COUNT(id) * 100, 2
+  ) AS churn_rate_pct
+FROM tblhosting
+LIMIT 1;
+```
+
+### ARPU (Average Revenue Per User)
+```sql
+SELECT ROUND(SUM(i.total) / COUNT(DISTINCT i.userid), 2) AS arpu
+FROM tblinvoices i
+WHERE i.status = 'Paid'
+  AND i.datepaid >= DATE_FORMAT(NOW(), '%Y-%m-01')
+LIMIT 1;
+```
+
+### Renewal Rate (domains)
+```sql
+SELECT
+  COUNT(CASE WHEN donotrenew = 0 THEN 1 END) AS will_renew,
+  COUNT(CASE WHEN donotrenew = 1 THEN 1 END) AS will_not_renew,
+  ROUND(
+    COUNT(CASE WHEN donotrenew = 0 THEN 1 END) / COUNT(id) * 100, 2
+  ) AS renewal_rate_pct
+FROM tbldomains
+WHERE status = 'Active'
+LIMIT 1;
 ```
 
 ---

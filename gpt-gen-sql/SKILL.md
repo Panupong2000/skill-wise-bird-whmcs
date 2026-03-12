@@ -27,13 +27,19 @@ This skill is ONLY for querying WHMCS database data (customers, hosting, domains
 - Do NOT generate business insights, analysis, or recommendations
 - Only present the data from the query results
 
-## Excel Export
+## Excel & CSV Export
 
-When query results exceed **100 rows**, the script automatically exports to Excel:
-- File saved at: `/tmp/query_result.xlsx`
-- The JSON output will contain `"export": "excel"` and `"file_path"` instead of `"result"`
+When query results exceed **100 rows**, the script automatically exports to files:
+- Excel: `/tmp/query_result.xlsx`
+- CSV: `/tmp/query_result.csv`
+- The JSON output will contain `"export": "file"`, `"excel_path"`, and `"csv_path"` instead of `"result"`
 - When this happens, provide the Excel file to the user and show the SQL that was used
-- Tell the user: "ผลลัพธ์มีจำนวนมาก จึงส่งออกเป็นไฟล์ Excel แล้วครับ"
+- Tell the user: "ผลลัพธ์มีจำนวนมาก จึงส่งออกเป็นไฟล์ Excel และ CSV แล้วครับ"
+
+## Query Caching
+
+- Identical queries are cached for 5 minutes in `/tmp/sql_cache/`
+- Output includes `"cached": true/false` to indicate if result came from cache
 
 ## Output Formatting Rules
 
