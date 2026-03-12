@@ -1,0 +1,1166 @@
+{
+  "tblclients": {
+    "columns": {
+      "id": {
+        "type": "int",
+        "description": "Primary key, client ID"
+      },
+      "uuid": {
+        "type": "varchar",
+        "description": "Unique identifier (UUID format)"
+      },
+      "firstname": {
+        "type": "varchar",
+        "description": "Client first name"
+      },
+      "lastname": {
+        "type": "varchar",
+        "description": "Client last name"
+      },
+      "companyname": {
+        "type": "varchar",
+        "description": "Company name (may be empty for individual clients)"
+      },
+      "email": {
+        "type": "varchar",
+        "description": "Primary email address"
+      },
+      "address1": {
+        "type": "varchar",
+        "description": "Primary address line 1"
+      },
+      "address2": {
+        "type": "varchar",
+        "description": "Primary address line 2"
+      },
+      "city": {
+        "type": "varchar",
+        "description": "City"
+      },
+      "state": {
+        "type": "varchar",
+        "description": "State/Province"
+      },
+      "postcode": {
+        "type": "varchar",
+        "description": "Postal/ZIP code"
+      },
+      "country": {
+        "type": "varchar",
+        "description": "Country code (2-letter ISO)"
+      },
+      "phonenumber": {
+        "type": "varchar",
+        "description": "Phone number"
+      },
+      "tax_id": {
+        "type": "varchar",
+        "description": "Tax identification number"
+      },
+      "password": {
+        "type": "varchar",
+        "description": "Hashed password — never select this"
+      },
+      "authmodule": {
+        "type": "varchar",
+        "description": "Authentication module"
+      },
+      "authdata": {
+        "type": "text",
+        "description": "Authentication data"
+      },
+      "currency": {
+        "type": "int",
+        "description": "Currency ID from tblcurrencies"
+      },
+      "defaultgateway": {
+        "type": "varchar",
+        "description": "Default payment gateway name"
+      },
+      "credit": {
+        "type": "decimal",
+        "description": "Account credit balance — positive means client has prepaid credit",
+        "business_note": "Used to offset future invoices"
+      },
+      "taxexempt": {
+        "type": "tinyint",
+        "description": "1 = tax exempt, 0 = normal tax"
+      },
+      "latefeeoveride": {
+        "type": "tinyint",
+        "description": "Late fee override flag"
+      },
+      "overideduenotices": {
+        "type": "varchar",
+        "description": "Override due notices setting"
+      },
+      "separateinvoices": {
+        "type": "tinyint",
+        "description": "1 = generate separate invoices per product"
+      },
+      "disableautocc": {
+        "type": "tinyint",
+        "description": "1 = disable automatic credit card charges"
+      },
+      "datecreated": {
+        "type": "date",
+        "description": "Client account creation date",
+        "business_note": "Use for customer lifetime and acquisition analysis"
+      },
+      "notes": {
+        "type": "text",
+        "description": "Admin notes about client"
+      },
+      "billingcid": {
+        "type": "int",
+        "description": "Billing contact ID"
+      },
+      "securityqid": {
+        "type": "int",
+        "description": "Security question ID"
+      },
+      "securityqans": {
+        "type": "varchar",
+        "description": "Security question answer (hashed)"
+      },
+      "groupid": {
+        "type": "int",
+        "description": "Client group ID"
+      },
+      "cardtype": {
+        "type": "varchar",
+        "description": "Credit card type"
+      },
+      "cardlastfour": {
+        "type": "varchar",
+        "description": "Last 4 digits of card"
+      },
+      "cardnum": {
+        "type": "varchar",
+        "description": "Encrypted card number"
+      },
+      "startdate": {
+        "type": "varchar",
+        "description": "Card start date"
+      },
+      "expdate": {
+        "type": "varchar",
+        "description": "Card expiry date"
+      },
+      "issuenumber": {
+        "type": "varchar",
+        "description": "Card issue number"
+      },
+      "bankname": {
+        "type": "varchar",
+        "description": "Bank name"
+      },
+      "banktype": {
+        "type": "varchar",
+        "description": "Bank account type"
+      },
+      "bankcode": {
+        "type": "varchar",
+        "description": "Bank sort/routing code"
+      },
+      "bankacct": {
+        "type": "varchar",
+        "description": "Bank account number"
+      },
+      "gatewayid": {
+        "type": "varchar",
+        "description": "Payment gateway customer ID"
+      },
+      "lastlogin": {
+        "type": "datetime",
+        "description": "Last client area login timestamp"
+      },
+      "ip": {
+        "type": "varchar",
+        "description": "Last login IP address"
+      },
+      "host": {
+        "type": "varchar",
+        "description": "Last login hostname"
+      },
+      "status": {
+        "type": "enum",
+        "values": [
+          "Active",
+          "Inactive",
+          "Closed"
+        ],
+        "description": "Client account status",
+        "business_note": "Active = current customer, Inactive = suspended account, Closed = churned customer"
+      },
+      "language": {
+        "type": "varchar",
+        "description": "Preferred language"
+      },
+      "pwresetkey": {
+        "type": "varchar",
+        "description": "Password reset key"
+      },
+      "emailoptout": {
+        "type": "tinyint",
+        "description": "1 = opted out of emails"
+      },
+      "marketing_emails_opt_in": {
+        "type": "tinyint",
+        "description": "1 = opted in to marketing emails"
+      },
+      "overrideautoclose": {
+        "type": "tinyint",
+        "description": "Override auto-close setting"
+      },
+      "allow_sso": {
+        "type": "tinyint",
+        "description": "Allow single sign-on"
+      },
+      "email_verified": {
+        "type": "tinyint",
+        "description": "1 = email verified"
+      },
+      "email_preferences": {
+        "type": "text",
+        "description": "Email preference settings (JSON)"
+      },
+      "created_at": {
+        "type": "datetime",
+        "description": "Record created timestamp"
+      },
+      "updated_at": {
+        "type": "datetime",
+        "description": "Record last updated timestamp"
+      },
+      "pwresetexpiry": {
+        "type": "datetime",
+        "description": "Password reset key expiry"
+      }
+    },
+    "join_hints": [
+      "JOIN tblhosting ON tblclients.id = tblhosting.userid",
+      "JOIN tbldomains ON tblclients.id = tbldomains.userid",
+      "JOIN tblinvoices ON tblclients.id = tblinvoices.userid"
+    ]
+  },
+  "tbldomains": {
+    "columns": {
+      "id": {
+        "type": "int",
+        "description": "Primary key, domain ID"
+      },
+      "userid": {
+        "type": "int",
+        "description": "FK → tblclients.id"
+      },
+      "orderid": {
+        "type": "int",
+        "description": "FK → tblorders.id"
+      },
+      "type": {
+        "type": "varchar",
+        "description": "Domain type: Register, Transfer, etc."
+      },
+      "registrationdate": {
+        "type": "date",
+        "description": "Date domain was registered"
+      },
+      "domain": {
+        "type": "varchar",
+        "description": "Full domain name (e.g. example.com)"
+      },
+      "firstpaymentamount": {
+        "type": "decimal",
+        "description": "First/initial payment amount"
+      },
+      "recurringamount": {
+        "type": "decimal",
+        "description": "Recurring renewal price"
+      },
+      "registrar": {
+        "type": "varchar",
+        "description": "Domain registrar module name"
+      },
+      "registrationperiod": {
+        "type": "int",
+        "description": "Registration period in years"
+      },
+      "expirydate": {
+        "type": "date",
+        "description": "Domain expiry date",
+        "business_note": "Use to find domains expiring soon: WHERE expirydate BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 30 DAY)"
+      },
+      "subscriptionid": {
+        "type": "varchar",
+        "description": "Payment gateway subscription ID"
+      },
+      "promoid": {
+        "type": "int",
+        "description": "Promotion ID if any"
+      },
+      "status": {
+        "type": "enum",
+        "values": [
+          "Active",
+          "Pending",
+          "Pending Transfer",
+          "Expired",
+          "Cancelled",
+          "Fraud",
+          "Transferred Away",
+          "Grace",
+          "Redemption"
+        ],
+        "description": "Domain registration status",
+        "business_note": "Active = currently registered, Expired/Cancelled = lost domains"
+      },
+      "nextduedate": {
+        "type": "date",
+        "description": "Next payment due date"
+      },
+      "nextinvoicedate": {
+        "type": "date",
+        "description": "Next auto-invoice generation date"
+      },
+      "additionalnotes": {
+        "type": "text",
+        "description": "Additional notes"
+      },
+      "paymentmethod": {
+        "type": "varchar",
+        "description": "Payment method gateway name"
+      },
+      "dnsmanagement": {
+        "type": "tinyint",
+        "description": "1 = DNS management addon enabled"
+      },
+      "emailforwarding": {
+        "type": "tinyint",
+        "description": "1 = email forwarding addon enabled"
+      },
+      "idprotection": {
+        "type": "tinyint",
+        "description": "1 = ID protection addon enabled"
+      },
+      "is_premium": {
+        "type": "tinyint",
+        "description": "1 = premium domain"
+      },
+      "donotrenew": {
+        "type": "tinyint",
+        "description": "1 = marked to NOT auto-renew",
+        "business_note": "Flag for churn risk — client intentionally opted out of renewal"
+      },
+      "reminders": {
+        "type": "int",
+        "description": "Number of renewal reminders sent"
+      },
+      "synced": {
+        "type": "tinyint",
+        "description": "1 = synced with registrar"
+      },
+      "created_at": {
+        "type": "datetime",
+        "description": "Record created timestamp"
+      },
+      "updated_at": {
+        "type": "datetime",
+        "description": "Record last updated timestamp"
+      }
+    },
+    "join_hints": [
+      "JOIN tblclients ON tblclients.id = tbldomains.userid"
+    ]
+  },
+  "tblhosting": {
+    "columns": {
+      "id": {
+        "type": "int",
+        "description": "Primary key, hosting/service ID"
+      },
+      "userid": {
+        "type": "int",
+        "description": "FK → tblclients.id"
+      },
+      "orderid": {
+        "type": "int",
+        "description": "FK → tblorders.id"
+      },
+      "packageid": {
+        "type": "int",
+        "description": "FK → tblproducts.id — the product/package",
+        "business_note": "JOIN tblproducts to get product name"
+      },
+      "server": {
+        "type": "int",
+        "description": "Server ID assigned to this service"
+      },
+      "regdate": {
+        "type": "date",
+        "description": "Service registration/order date",
+        "business_note": "Use for cohort analysis and service age calculation"
+      },
+      "domain": {
+        "type": "varchar",
+        "description": "Domain associated with this hosting service"
+      },
+      "paymentmethod": {
+        "type": "varchar",
+        "description": "Payment method gateway name"
+      },
+      "qty": {
+        "type": "int",
+        "description": "Quantity ordered"
+      },
+      "firstpaymentamount": {
+        "type": "decimal",
+        "description": "One-time initial payment amount",
+        "business_note": "This is the FIRST payment only — not recurring. Use 'amount' for recurring revenue"
+      },
+      "amount": {
+        "type": "decimal",
+        "description": "Recurring charge amount per billing cycle",
+        "business_note": "This is the RECURRING charge — multiply by cycle frequency for annual revenue. NOT the one-time payment (use firstpaymentamount for that)"
+      },
+      "billingcycle": {
+        "type": "enum",
+        "values": [
+          "Monthly",
+          "Quarterly",
+          "Semi-Annually",
+          "Annually",
+          "Biennially",
+          "Triennially",
+          "Free Account",
+          "One Time"
+        ],
+        "description": "Billing cycle frequency",
+        "business_note": "To calculate monthly revenue: Monthly=amount, Quarterly=amount/3, Semi-Annually=amount/6, Annually=amount/12, Biennially=amount/24, Triennially=amount/36"
+      },
+      "nextduedate": {
+        "type": "date",
+        "description": "Next payment due date"
+      },
+      "nextinvoicedate": {
+        "type": "date",
+        "description": "Next auto-invoice generation date"
+      },
+      "termination_date": {
+        "type": "date",
+        "description": "Date service was terminated (NULL if active)"
+      },
+      "completed_date": {
+        "type": "date",
+        "description": "Date service setup was completed"
+      },
+      "domainstatus": {
+        "type": "enum",
+        "values": [
+          "Active",
+          "Suspended",
+          "Terminated",
+          "Cancelled",
+          "Pending",
+          "Fraud"
+        ],
+        "description": "Current hosting/service status",
+        "business_note": "Key for churn analysis: Active = healthy, Suspended = at-risk, Terminated+Cancelled = churned. Use Pending for new signups pipeline"
+      },
+      "username": {
+        "type": "varchar",
+        "description": "Service username (cPanel, etc.)"
+      },
+      "password": {
+        "type": "varchar",
+        "description": "Encrypted service password — never select this"
+      },
+      "notes": {
+        "type": "text",
+        "description": "Admin notes"
+      },
+      "subscriptionid": {
+        "type": "varchar",
+        "description": "Payment gateway subscription ID"
+      },
+      "recommendation_source_product_id": {
+        "type": "int",
+        "description": "Source product ID for upsell recommendation"
+      },
+      "promoid": {
+        "type": "int",
+        "description": "Promotion ID if applied"
+      },
+      "promocount": {
+        "type": "int",
+        "description": "Number of billing cycles promo applies"
+      },
+      "suspendreason": {
+        "type": "varchar",
+        "description": "Reason for suspension",
+        "business_note": "Useful for understanding why services are suspended (e.g. non-payment, abuse)"
+      },
+      "overideautosuspend": {
+        "type": "tinyint",
+        "description": "1 = override automatic suspension"
+      },
+      "overidesuspenduntil": {
+        "type": "date",
+        "description": "Override suspension until this date"
+      },
+      "dedicatedip": {
+        "type": "varchar",
+        "description": "Dedicated IP address"
+      },
+      "assignedips": {
+        "type": "text",
+        "description": "Additional assigned IPs"
+      },
+      "ns1": {
+        "type": "varchar",
+        "description": "Nameserver 1"
+      },
+      "ns2": {
+        "type": "varchar",
+        "description": "Nameserver 2"
+      },
+      "diskusage": {
+        "type": "int",
+        "description": "Current disk usage in MB"
+      },
+      "disklimit": {
+        "type": "int",
+        "description": "Disk space limit in MB"
+      },
+      "bwusage": {
+        "type": "int",
+        "description": "Current bandwidth usage in MB"
+      },
+      "bwlimit": {
+        "type": "int",
+        "description": "Bandwidth limit in MB"
+      },
+      "upsell_from_products": {
+        "type": "text",
+        "description": "Upsell source products"
+      },
+      "lastupdate": {
+        "type": "datetime",
+        "description": "Last cPanel/server sync timestamp"
+      },
+      "created_at": {
+        "type": "datetime",
+        "description": "Record created timestamp"
+      },
+      "updated_at": {
+        "type": "datetime",
+        "description": "Record last updated timestamp"
+      }
+    },
+    "join_hints": [
+      "JOIN tblclients ON tblclients.id = tblhosting.userid",
+      "JOIN tblproducts ON tblproducts.id = tblhosting.packageid"
+    ]
+  },
+  "tblinvoices": {
+    "columns": {
+      "id": {
+        "type": "int",
+        "description": "Primary key, invoice ID"
+      },
+      "userid": {
+        "type": "int",
+        "description": "FK → tblclients.id"
+      },
+      "invoicenum": {
+        "type": "varchar",
+        "description": "Custom invoice number (may differ from id)"
+      },
+      "date": {
+        "type": "date",
+        "description": "Invoice creation date"
+      },
+      "duedate": {
+        "type": "date",
+        "description": "Payment due date"
+      },
+      "datepaid": {
+        "type": "datetime",
+        "description": "Date and time invoice was paid (NULL if unpaid)",
+        "business_note": "Use for revenue analysis — filter by datepaid for actual received revenue, not invoice date"
+      },
+      "last_capture_attempt": {
+        "type": "datetime",
+        "description": "Last automatic payment capture attempt"
+      },
+      "date_refunded": {
+        "type": "datetime",
+        "description": "Date invoice was refunded (NULL if not refunded)"
+      },
+      "date_cancelled": {
+        "type": "datetime",
+        "description": "Date invoice was cancelled"
+      },
+      "subtotal": {
+        "type": "decimal",
+        "description": "Invoice subtotal before tax"
+      },
+      "credit": {
+        "type": "decimal",
+        "description": "Credit applied to this invoice"
+      },
+      "tax": {
+        "type": "decimal",
+        "description": "Tax amount"
+      },
+      "tax2": {
+        "type": "decimal",
+        "description": "Second tax amount (for dual-tax regions)"
+      },
+      "total": {
+        "type": "decimal",
+        "description": "Total invoice amount including tax",
+        "business_note": "Use total (not subtotal) for revenue reporting — it reflects what client actually pays"
+      },
+      "taxrate": {
+        "type": "decimal",
+        "description": "Tax rate percentage"
+      },
+      "taxrate2": {
+        "type": "decimal",
+        "description": "Second tax rate percentage"
+      },
+      "status": {
+        "type": "enum",
+        "values": [
+          "Paid",
+          "Unpaid",
+          "Cancelled",
+          "Refunded",
+          "Collections",
+          "Payment Pending",
+          "Draft"
+        ],
+        "description": "Invoice payment status",
+        "business_note": "Paid = revenue collected, Unpaid = outstanding AR, Collections = escalated debt, Refunded = money returned"
+      },
+      "paymentmethod": {
+        "type": "varchar",
+        "description": "Payment gateway used"
+      },
+      "paymethodid": {
+        "type": "int",
+        "description": "Specific payment method ID"
+      },
+      "notes": {
+        "type": "text",
+        "description": "Invoice notes"
+      },
+      "created_at": {
+        "type": "datetime",
+        "description": "Record created timestamp"
+      },
+      "updated_at": {
+        "type": "datetime",
+        "description": "Record last updated timestamp"
+      }
+    },
+    "join_hints": [
+      "JOIN tblclients ON tblclients.id = tblinvoices.userid",
+      "JOIN tblinvoiceitems ON tblinvoiceitems.invoiceid = tblinvoices.id"
+    ]
+  },
+  "tblinvoiceitems": {
+    "columns": {
+      "id": {
+        "type": "int",
+        "description": "Primary key"
+      },
+      "invoiceid": {
+        "type": "int",
+        "description": "FK → tblinvoices.id"
+      },
+      "userid": {
+        "type": "int",
+        "description": "FK → tblclients.id"
+      },
+      "type": {
+        "type": "varchar",
+        "description": "Item type: Hosting, Domain, DomainAddonDNS, etc."
+      },
+      "relid": {
+        "type": "int",
+        "description": "Related item ID (e.g. hosting ID or domain ID depending on type)"
+      },
+      "description": {
+        "type": "text",
+        "description": "Line item description shown on invoice"
+      },
+      "amount": {
+        "type": "decimal",
+        "description": "Line item amount"
+      },
+      "taxed": {
+        "type": "tinyint",
+        "description": "1 = this item is taxed"
+      },
+      "duedate": {
+        "type": "date",
+        "description": "Item due date"
+      },
+      "paymentmethod": {
+        "type": "varchar",
+        "description": "Payment method"
+      },
+      "notes": {
+        "type": "text",
+        "description": "Item notes"
+      }
+    },
+    "join_hints": [
+      "JOIN tblinvoices ON tblinvoiceitems.invoiceid = tblinvoices.id"
+    ]
+  },
+  "tblproducts": {
+    "columns": {
+      "id": {
+        "type": "int",
+        "description": "Primary key, product ID"
+      },
+      "type": {
+        "type": "varchar",
+        "description": "Product type: hostingaccount, reselleraccount, server, other"
+      },
+      "gid": {
+        "type": "int",
+        "description": "FK → tblproductgroups.id — product group"
+      },
+      "name": {
+        "type": "varchar",
+        "description": "Product display name",
+        "business_note": "Use this for human-readable product identification"
+      },
+      "slug": {
+        "type": "varchar",
+        "description": "URL-friendly product identifier"
+      },
+      "description": {
+        "type": "text",
+        "description": "Product description (may contain HTML)"
+      },
+      "hidden": {
+        "type": "tinyint",
+        "description": "1 = hidden from order form"
+      },
+      "showdomainoptions": {
+        "type": "tinyint",
+        "description": "Show domain options on order"
+      },
+      "welcomeemail": {
+        "type": "int",
+        "description": "Welcome email template ID"
+      },
+      "stockcontrol": {
+        "type": "tinyint",
+        "description": "1 = stock control enabled"
+      },
+      "qty": {
+        "type": "int",
+        "description": "Available stock quantity"
+      },
+      "proratabilling": {
+        "type": "tinyint",
+        "description": "1 = pro-rata billing enabled"
+      },
+      "proratadate": {
+        "type": "int",
+        "description": "Pro-rata billing day of month"
+      },
+      "proratachargenextmonth": {
+        "type": "int",
+        "description": "Pro-rata charge next month threshold"
+      },
+      "paytype": {
+        "type": "varchar",
+        "description": "Payment type: free, onetime, recurring"
+      },
+      "allowqty": {
+        "type": "tinyint",
+        "description": "1 = allow quantity selection"
+      },
+      "subdomain": {
+        "type": "varchar",
+        "description": "Subdomain base for auto-provisioning"
+      },
+      "autosetup": {
+        "type": "varchar",
+        "description": "Auto-setup timing: order, payment, on, etc."
+      },
+      "servertype": {
+        "type": "varchar",
+        "description": "Server module type (e.g. cpanel, directadmin)"
+      },
+      "servergroup": {
+        "type": "int",
+        "description": "Server group ID"
+      },
+      "freedomain": {
+        "type": "varchar",
+        "description": "Free domain TLDs offered"
+      },
+      "freedomainpaymentterms": {
+        "type": "varchar",
+        "description": "Payment terms qualifying for free domain"
+      },
+      "freedomaintlds": {
+        "type": "varchar",
+        "description": "Eligible TLDs for free domain"
+      },
+      "recurringcycles": {
+        "type": "int",
+        "description": "Number of recurring cycles (0 = unlimited)"
+      },
+      "autoterminatedays": {
+        "type": "int",
+        "description": "Days after expiry to auto-terminate"
+      },
+      "autoterminateemail": {
+        "type": "int",
+        "description": "Auto-terminate email template ID"
+      },
+      "configoptionsupgrade": {
+        "type": "tinyint",
+        "description": "Allow config option upgrades"
+      },
+      "billingcycleupgrade": {
+        "type": "varchar",
+        "description": "Allowed billing cycle upgrades"
+      },
+      "upgradeemail": {
+        "type": "int",
+        "description": "Upgrade email template ID"
+      },
+      "overagesenabled": {
+        "type": "tinyint",
+        "description": "1 = overage billing enabled"
+      },
+      "overagesdisklimit": {
+        "type": "int",
+        "description": "Disk overage limit in MB"
+      },
+      "overagesbwlimit": {
+        "type": "int",
+        "description": "Bandwidth overage limit in MB"
+      },
+      "overagesdiskprice": {
+        "type": "decimal",
+        "description": "Disk overage price per MB"
+      },
+      "overagesbwprice": {
+        "type": "decimal",
+        "description": "Bandwidth overage price per MB"
+      },
+      "tax": {
+        "type": "tinyint",
+        "description": "1 = product is taxable"
+      },
+      "affiliateonetime": {
+        "type": "tinyint",
+        "description": "1 = one-time affiliate commission"
+      },
+      "affiliatepaytype": {
+        "type": "varchar",
+        "description": "Affiliate payout type"
+      },
+      "affiliatepayamount": {
+        "type": "decimal",
+        "description": "Affiliate payout amount"
+      },
+      "order": {
+        "type": "int",
+        "description": "Display sort order"
+      },
+      "retired": {
+        "type": "tinyint",
+        "description": "1 = product is retired (no new orders)"
+      },
+      "is_featured": {
+        "type": "tinyint",
+        "description": "1 = featured product"
+      },
+      "color": {
+        "type": "varchar",
+        "description": "Display color"
+      },
+      "tagline": {
+        "type": "varchar",
+        "description": "Short tagline"
+      },
+      "short_description": {
+        "type": "text",
+        "description": "Short product description"
+      },
+      "created_at": {
+        "type": "datetime",
+        "description": "Record created timestamp"
+      },
+      "updated_at": {
+        "type": "datetime",
+        "description": "Record last updated timestamp"
+      }
+    },
+    "join_hints": [
+      "JOIN tblproductgroups ON tblproductgroups.id = tblproducts.gid",
+      "JOIN tblhosting ON tblhosting.packageid = tblproducts.id"
+    ]
+  },
+  "tblproductgroups": {
+    "columns": {
+      "id": {
+        "type": "int",
+        "description": "Primary key, product group ID"
+      },
+      "name": {
+        "type": "varchar",
+        "description": "Group display name"
+      },
+      "slug": {
+        "type": "varchar",
+        "description": "URL-friendly identifier"
+      },
+      "headline": {
+        "type": "varchar",
+        "description": "Group headline text"
+      },
+      "tagline": {
+        "type": "varchar",
+        "description": "Group tagline text"
+      },
+      "orderfrmtpl": {
+        "type": "varchar",
+        "description": "Order form template name"
+      },
+      "disabledgateways": {
+        "type": "text",
+        "description": "Comma-separated list of disabled gateways"
+      },
+      "hidden": {
+        "type": "tinyint",
+        "description": "1 = hidden from order form"
+      },
+      "order": {
+        "type": "int",
+        "description": "Display sort order"
+      },
+      "created_at": {
+        "type": "datetime",
+        "description": "Record created timestamp"
+      },
+      "updated_at": {
+        "type": "datetime",
+        "description": "Record last updated timestamp"
+      }
+    },
+    "join_hints": [
+      "JOIN tblproducts ON tblproducts.gid = tblproductgroups.id"
+    ]
+  },
+  "tbltickets": {
+    "columns": {
+      "id": {
+        "type": "int",
+        "description": "Primary key, ticket ID"
+      },
+      "tid": {
+        "type": "varchar",
+        "description": "Ticket number (displayed to client)"
+      },
+      "userid": {
+        "type": "int",
+        "description": "FK → tblclients.id (0 for guest tickets)"
+      },
+      "contactid": {
+        "type": "int",
+        "description": "Contact ID if opened by sub-contact"
+      },
+      "deptid": {
+        "type": "int",
+        "description": "Department ID"
+      },
+      "name": {
+        "type": "varchar",
+        "description": "Ticket opener name (for guest tickets)"
+      },
+      "email": {
+        "type": "varchar",
+        "description": "Ticket opener email"
+      },
+      "cc": {
+        "type": "text",
+        "description": "CC email addresses"
+      },
+      "c": {
+        "type": "varchar",
+        "description": "Access hash for guest ticket viewing"
+      },
+      "date": {
+        "type": "datetime",
+        "description": "Ticket open date/time"
+      },
+      "title": {
+        "type": "varchar",
+        "description": "Ticket subject line"
+      },
+      "message": {
+        "type": "text",
+        "description": "Initial ticket message"
+      },
+      "status": {
+        "type": "enum",
+        "values": [
+          "Open",
+          "Answered",
+          "Customer-Reply",
+          "Closed",
+          "On Hold",
+          "In Progress"
+        ],
+        "description": "Ticket status",
+        "business_note": "Open+Customer-Reply = needs attention, Answered = waiting on client, Closed = resolved"
+      },
+      "priority": {
+        "type": "enum",
+        "values": [
+          "Low",
+          "Medium",
+          "High"
+        ],
+        "description": "Ticket priority level"
+      },
+      "admin": {
+        "type": "varchar",
+        "description": "Assigned admin username"
+      },
+      "attachment": {
+        "type": "varchar",
+        "description": "Attachment filenames"
+      },
+      "lastreply": {
+        "type": "datetime",
+        "description": "Date/time of last reply",
+        "business_note": "Compare with date to measure response time and ticket age"
+      },
+      "flag": {
+        "type": "int",
+        "description": "Flagged admin user ID (0 = unflagged)"
+      },
+      "clientunread": {
+        "type": "tinyint",
+        "description": "1 = client has not read latest reply"
+      },
+      "adminunread": {
+        "type": "tinyint",
+        "description": "1 = admin has not read latest reply"
+      },
+      "replyingadmin": {
+        "type": "int",
+        "description": "Admin ID currently replying"
+      },
+      "replyingtime": {
+        "type": "datetime",
+        "description": "Timestamp of reply in progress"
+      },
+      "service": {
+        "type": "varchar",
+        "description": "Related service type (e.g. S=hosting, D=domain)"
+      },
+      "merged_ticket_id": {
+        "type": "int",
+        "description": "ID of ticket this was merged into"
+      },
+      "created_at": {
+        "type": "datetime",
+        "description": "Record created timestamp"
+      },
+      "updated_at": {
+        "type": "datetime",
+        "description": "Record last updated timestamp"
+      }
+    },
+    "join_hints": [
+      "JOIN tblclients ON tblclients.id = tbltickets.userid"
+    ]
+  },
+  "tbltransactions": {
+    "columns": {
+      "id": {
+        "type": "int",
+        "description": "Primary key, transaction ID"
+      },
+      "userid": {
+        "type": "int",
+        "description": "FK → tblclients.id"
+      },
+      "currency": {
+        "type": "int",
+        "description": "Currency ID"
+      },
+      "gateway": {
+        "type": "varchar",
+        "description": "Payment gateway name"
+      },
+      "date": {
+        "type": "datetime",
+        "description": "Transaction date",
+        "business_note": "Use for payment timeline analysis"
+      },
+      "description": {
+        "type": "text",
+        "description": "Transaction description"
+      },
+      "amountin": {
+        "type": "decimal",
+        "description": "Amount received (income)",
+        "business_note": "This is actual money IN — use for real cash flow analysis"
+      },
+      "fees": {
+        "type": "decimal",
+        "description": "Gateway fees deducted",
+        "business_note": "Subtract from amountin for net revenue"
+      },
+      "amountout": {
+        "type": "decimal",
+        "description": "Amount refunded/paid out"
+      },
+      "rate": {
+        "type": "decimal",
+        "description": "Currency exchange rate"
+      },
+      "transid": {
+        "type": "varchar",
+        "description": "Gateway transaction reference ID"
+      },
+      "invoiceid": {
+        "type": "int",
+        "description": "FK → tblinvoices.id (0 if not linked to invoice)",
+        "business_note": "JOIN tblinvoices to link transaction to specific invoice"
+      },
+      "refundid": {
+        "type": "int",
+        "description": "Related refund transaction ID"
+      },
+      "created_at": {
+        "type": "datetime",
+        "description": "Record created timestamp"
+      },
+      "updated_at": {
+        "type": "datetime",
+        "description": "Record last updated timestamp"
+      }
+    },
+    "join_hints": [
+      "JOIN tblclients ON tblclients.id = tbltransactions.userid",
+      "JOIN tblinvoices ON tblinvoices.id = tbltransactions.invoiceid"
+    ]
+  }
+}

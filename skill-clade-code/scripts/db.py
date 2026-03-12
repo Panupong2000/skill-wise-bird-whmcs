@@ -38,16 +38,25 @@ from logger import log_query, log_error
 _env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env")
 load_dotenv(_env_path)
 
+# DB_CONFIG = {
+#     "host": os.getenv("DB_HOST", "127.0.0.1"),
+#     "port": int(os.getenv("DB_PORT", 3306)),
+#     "user": os.getenv("DB_USER", "whmcs_readonly"),
+#     "password": os.getenv("DB_PASS", ""),
+#     "database": os.getenv("DB_NAME", "whmcs"),
+#     "cursorclass": pymysql.cursors.DictCursor,
+#     "connect_timeout": int(os.getenv("DB_TIMEOUT", 30)),
+#     "read_timeout": int(os.getenv("DB_TIMEOUT", 30)),
+#     "charset": "utf8mb4",
+# }
+
 DB_CONFIG = {
-    "host": os.getenv("DB_HOST", "127.0.0.1"),
-    "port": int(os.getenv("DB_PORT", 3306)),
-    "user": os.getenv("DB_USER", "whmcs_readonly"),
-    "password": os.getenv("DB_PASS", ""),
-    "database": os.getenv("DB_NAME", "whmcs"),
-    "cursorclass": pymysql.cursors.DictCursor,
-    "connect_timeout": int(os.getenv("DB_TIMEOUT", 30)),
-    "read_timeout": int(os.getenv("DB_TIMEOUT", 30)),
-    "charset": "utf8mb4",
+    "host": "103.2.113.229",
+    "port": 3306,
+    "user": "lotus_whmcs",
+    "password": "w,jmik[8iy[",
+    "database": "temp-whmcs",
+    "cursorclass": pymysql.cursors.DictCursor
 }
 
 # --- Safety ---

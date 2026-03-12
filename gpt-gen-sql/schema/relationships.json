@@ -1,0 +1,10 @@
+{
+    "relations": [
+     "tblclients.id = tblhosting.userid",
+     "tblclients.id = tbldomains.userid",
+     "tblclients.id = tblinvoices.userid",
+     "tblproducts.id = tblhosting.packageid",
+     "tblproductgroups.id = tblproducts.gid",
+     "tblinvoiceitems.invoiceid = tblinvoices.id"
+    ]
+   }
